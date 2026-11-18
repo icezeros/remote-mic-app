@@ -582,10 +582,12 @@ DEFAULT_CACHE_PATH="/private/tmp/remote-mic-swiftpm-cache/$VERSION-$BUILD/$RELEA
 BUILD_SCRATCH_PATH="${REMOTE_MIC_BUILD_SCRATCH_PATH:-$DEFAULT_SCRATCH_PATH}"
 BUILD_CACHE_PATH="${REMOTE_MIC_BUILD_CACHE_PATH:-$DEFAULT_CACHE_PATH}"
 SPARKLE_FRAMEWORK="$BUILD_SCRATCH_PATH/artifacts/sparkle/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework"
+SWIFT_BUILD_EXTRA_FLAGS="${SAYALL_SWIFT_BUILD_EXTRA_FLAGS:-}"
 
 run_release_stage app-swift-build "$RELEASE_SWIFT_BUILD_TIMEOUT_SECONDS" \
   xcrun swift build \
   --disable-keychain \
+  ${SWIFT_BUILD_EXTRA_FLAGS} \
   --scratch-path "$BUILD_SCRATCH_PATH" \
   --cache-path "$BUILD_CACHE_PATH" \
   -c "$CONFIGURATION" \
@@ -593,6 +595,7 @@ run_release_stage app-swift-build "$RELEASE_SWIFT_BUILD_TIMEOUT_SECONDS" \
 BIN_DIR="$(run_release_stage app-swift-bin-path 30 \
   xcrun swift build \
   --disable-keychain \
+  ${SWIFT_BUILD_EXTRA_FLAGS} \
   --scratch-path "$BUILD_SCRATCH_PATH" \
   --cache-path "$BUILD_CACHE_PATH" \
   -c "$CONFIGURATION" \
