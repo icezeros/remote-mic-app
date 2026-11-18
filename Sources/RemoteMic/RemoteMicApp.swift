@@ -314,6 +314,9 @@ private final class RemoteMicAppDelegate: NSObject, NSApplicationDelegate, NSMen
         model.privateFeature.refreshAccessIfNeeded()
         model.macroFeature.refreshAccessIfNeeded()
         model.membershipFeature.refreshIfNeeded()
+        // 语音电脑助手：仅当用户启用过策略时才真正监听本地控制桥。
+        _ = ComputerControlService.shared
+        VoiceAgentSubmitter.shared.update()
         if OnboardingLaunchPolicy.shouldStartRuntime(
             isComplete: model.settings.isOnboardingComplete,
             step: model.settings.onboardingStep

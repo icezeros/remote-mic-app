@@ -600,6 +600,7 @@ BIN_DIR="$(run_release_stage app-swift-bin-path 30 \
   --show-bin-path)"
 BIN_PATH="$BIN_DIR/$APP_NAME"
 MCP_HELPER_PATH="$BIN_DIR/SayAllMCP"
+CONTROL_HELPER_PATH="$BIN_DIR/SayAllControl"
 if [[ "$SAYALL_PRIVATE_ARTIFACT_INCLUDED" != "true" ]]; then
   APPLE_REMOTE_AUDIO_HELPER_PATH="$BIN_DIR/AppleRemoteAudioCapture"
   APPLE_REMOTE_HCI_SERVICE_PATH="$BIN_DIR/AppleRemoteHCIService"
@@ -672,6 +673,9 @@ install_name_tool -add_rpath @executable_path/../Frameworks \
 ditto --norsrc --noextattr --noqtn --noacl \
   "$MCP_HELPER_PATH" "$APP_DIR/Contents/Helpers/SayAllMCP"
 strip -S -x "$APP_DIR/Contents/Helpers/SayAllMCP"
+ditto --norsrc --noextattr --noqtn --noacl \
+  "$CONTROL_HELPER_PATH" "$APP_DIR/Contents/Helpers/SayAllControl"
+strip -S -x "$APP_DIR/Contents/Helpers/SayAllControl"
 if [[ "$SAYALL_SIRI_REMOTE_INCLUDED" == "true" ]]; then
   ditto --norsrc --noextattr --noqtn --noacl \
     "$APPLE_REMOTE_AUDIO_HELPER_PATH" "$APP_DIR/Contents/Helpers/SayAllAppleRemoteAudioCapture"

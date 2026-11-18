@@ -19,6 +19,7 @@ var remoteMicDependencies: [Target.Dependency] = [
     "AppleRemoteHCIProtocol",
     "AppleRemotePacketLogger",
     "SayAllMCPKit",
+    "SayAllControlKit",
     .product(name: "Sparkle", package: "Sparkle"),
 ]
 var remoteMicTestDependencies: [Target.Dependency] = [
@@ -591,6 +592,10 @@ let package = Package(
             targets: ["SayAllMCP"]
         ),
         .executable(
+            name: "SayAllControl",
+            targets: ["SayAllControl"]
+        ),
+        .executable(
             name: "AppleRemoteHCIService",
             targets: ["AppleRemoteHCIService"]
         ),
@@ -666,9 +671,18 @@ let package = Package(
             dependencies: ["SayAllMCPKit"],
             path: "Sources/SayAllMCP"
         ),
+        .target(
+            name: "SayAllControlKit",
+            path: "Sources/SayAllControlKit"
+        ),
+        .executableTarget(
+            name: "SayAllControl",
+            dependencies: ["SayAllControlKit"],
+            path: "Sources/SayAllControl"
+        ),
         .testTarget(
             name: "RemoteMicTests",
-            dependencies: remoteMicTestDependencies + ["SayAllMCPKit", "AppleRemoteHCIProtocol"],
+            dependencies: remoteMicTestDependencies + ["SayAllMCPKit", "SayAllControlKit", "AppleRemoteHCIProtocol"],
             path: "Tests/RemoteMicTests",
             // This suite exercises internal source-only BLE hooks. Distribution binaries do not export them.
             exclude: macRemoteEnabled && !privateArtifactsAvailable ? [] : ["WatchBluetoothVoiceJourneyTests.swift"],

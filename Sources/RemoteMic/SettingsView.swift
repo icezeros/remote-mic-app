@@ -27,10 +27,11 @@ struct SettingsSection: RawRepresentable, Hashable, CaseIterable, Identifiable {
     static let applications = SettingsSection(rawValue: "applications")
     static let statistics = SettingsSection(rawValue: "statistics")
     static let transcripts = SettingsSection(rawValue: "transcripts")
+    static let computerControl = SettingsSection(rawValue: "computerControl")
     static let commonPhrases = SettingsSection(rawValue: "commonPhrases")
     static let permissions = SettingsSection(rawValue: "permissions")
     static let about = SettingsSection(rawValue: "about")
-    static let allCases: [SettingsSection] = [.connection, .privateFeature, .macros, .buttonProfiles, .membership, .mapping, .applications, .statistics, .transcripts, .commonPhrases, .permissions, .about]
+    static let allCases: [SettingsSection] = [.connection, .privateFeature, .macros, .buttonProfiles, .membership, .mapping, .applications, .statistics, .transcripts, .commonPhrases, .computerControl, .permissions, .about]
     static func supplemental(_ id: String) -> SettingsSection { SettingsSection(rawValue: "supplemental:" + id) }
     var supplementalID: String? { rawValue.hasPrefix("supplemental:") ? String(rawValue.dropFirst(13)) : nil }
     var id: String { rawValue }
@@ -47,6 +48,7 @@ struct SettingsSection: RawRepresentable, Hashable, CaseIterable, Identifiable {
         case .statistics: return "settings.section.statistics"
         case .commonPhrases: return "common_phrases.title"
         case .transcripts: return "settings.section.transcripts"
+        case .computerControl: return "settings.section.computer_control"
         case .permissions: return "settings.section.permissions"
         case .about: return "settings.section.settings"
         default: return ""
@@ -69,6 +71,7 @@ struct SettingsSection: RawRepresentable, Hashable, CaseIterable, Identifiable {
         case .statistics: return "person.crop.circle"
         case .commonPhrases: return "text.quote"
         case .transcripts: return "text.bubble.fill"
+        case .computerControl: return "cpu"
         case .permissions: return "shield.lefthalf.filled"
         case .about: return "gearshape"
         default: return "square"
@@ -207,6 +210,7 @@ enum SettingsPageBehavior {
         .membership,
         .connection,
         .transcripts,
+        .computerControl,
         .privateFeature,
         .about,
         .statistics,
@@ -1113,6 +1117,8 @@ struct SettingsView: View {
             } else {
                 aboutPage
             }
+        case .computerControl:
+            ComputerControlSettingsView(service: ComputerControlService.shared)
         case .macros:
             if macroFeature.isFeatureVisible {
                 VStack(spacing: 0) {

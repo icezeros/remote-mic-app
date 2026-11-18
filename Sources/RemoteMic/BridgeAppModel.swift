@@ -9647,6 +9647,10 @@ final class BridgeAppModel: NSObject, ObservableObject, XiaomiBluetoothBridgeDel
         // 会话因别的原因结束（用户关闭语音、切换输入源）时，必须让 Chromecast 包内的
         // latched 状态同步清空；否则下一次点按会被误判成「结束」而不是「开始」。
         chromecastFeature.notifyHostVoiceSessionEnded()
+        // 语音电脑助手：把这一句语音交给已配对的 Agent 应用（默认关闭）。
+        Task { @MainActor in
+            VoiceAgentSubmitter.shared.handleVoiceSessionEnded()
+        }
     }
 
     private var currentVoiceUsageSource: UsageEventSource {

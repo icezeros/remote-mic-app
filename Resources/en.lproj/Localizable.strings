@@ -650,6 +650,7 @@
 "settings.section.statistics" = "Profile";
 "settings.section.login" = "Me";
 "settings.section.transcripts" = "Reflections";
+"settings.section.computer_control" = "Voice Agent";
 "about.page.subtitle" = "View version, updates, language, and app display options";
 "about.app.description" = "Wireless voice and shortcut controls for Xiaomi Bluetooth Remote 2 Pro and Apple Remote.";
 "about.app_support.title" = "App & Support";

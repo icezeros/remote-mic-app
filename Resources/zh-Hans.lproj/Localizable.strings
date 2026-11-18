@@ -650,6 +650,7 @@
 "settings.section.statistics" = "个人中心";
 "settings.section.login" = "我的";
 "settings.section.transcripts" = "回眸";
+"settings.section.computer_control" = "语音电脑助手";
 "about.page.subtitle" = "查看版本、更新、语言和应用显示选项";
 "about.app.description" = "小米蓝牙遥控器 2 Pro 的无线语音与快捷操作工具。";
 "about.app_support.title" = "应用与支持";
